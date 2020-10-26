@@ -1,0 +1,110 @@
+html {
+  background-color: #3aafa9;
+}
+
+.wrapper {
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  min-height: 100vh;
+  padding-top: 10rem;
+}
+
+.historyDiv {
+  padding-top: unset;
+}
+
+.stopwatch {
+  font-size: 6rem;
+  letter-spacing: -1px;
+  font-family: "M PLUS Rounded 1c", sans-serif;
+}
+
+.timerdiv {
+  background-color: #99cfcc;
+  box-shadow: 0px 9px #2b7a78;
+  color: #ffffff;
+  width: fit-content;
+  padding: 2rem 2rem;
+  margin-top: 2rem;
+}
+
+.startbutton {
+  font-family: "M PLUS Rounded 1c", sans-serif;
+  letter-spacing: 2px;
+  box-shadow: 0px 5px #9bb9b8;
+  background-color: #fff;
+  color: #2b7a78;
+  font-weight: bold;
+}
+
+.addtask {
+  border: #fff;
+  border-radius: 2px;
+  border-style: dotted;
+  background-color: #2b7a78;
+  font-family: "M PLUS Rounded 1c", sans-serif;
+}
+
+.taskinput {
+  background-color: #2b7a78;
+  outline: none;
+}
+
+.title {
+  font-family: "M PLUS Rounded 1c", sans-serif;
+  color: #fff;
+}
+
+.waitTime {
+  background-color: #99cfcc;
+  box-shadow: 0px 9px #2b7a78;
+}
+
+.workTime {
+  background-color: #9acf99;
+  box-shadow: 0px 9px #538a52;
+}
+
+.signOut {
+  box-shadow: 0px 5px #be2e2e;
+}
+
+.share {
+  background-color: #aa2bb6;
+  box-shadow: 0px 5px #721a58;
+}
+
+.historyTime {
+  background-color: #4e90e7;
+  box-shadow: 0px 6px #5356db;
+}
+
+button:focus {
+  outline: none;
+}
+
+.credits {
+  background-color: #fff;
+  min-height: 100vh;
+  color: #2b7a78;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 0rem 1rem;
+}
+
+.footerIcons {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  margin: 0rem 1rem;
+}
+
+.breakTime {
+  background-color: #b299cf;
+  box-shadow: 0px 9px #685181;
+}
