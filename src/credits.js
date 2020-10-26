@@ -14,6 +14,7 @@ function useSessions(props) {
         const newTimes = snapshot.data();
         setTimes([...times, newTimes]);
       });
+    // eslint-disable-next-line
   }, []);
 
   return times;
