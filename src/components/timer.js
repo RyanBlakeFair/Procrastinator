@@ -84,7 +84,7 @@ function Timer(props) {
           className="text-4xl text-white text-center font-bold"
           style={{ textTransform: "uppercase" }}
         >
-          Smash it {props.displayName} 👊
+          Hello {props.displayName}
         </p>
         <div className="timerdiv ml-auto mr-auto rounded pb-12 pt-8">
           <p

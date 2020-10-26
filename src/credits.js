@@ -22,7 +22,6 @@ function useSessions(props) {
 
 function Credits(props) {
   const sessions = useSessions(props);
-  console.log(sessions);
 
   return (
     <div className="credits">

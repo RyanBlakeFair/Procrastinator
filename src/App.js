@@ -22,7 +22,15 @@ function App() {
       firebase.auth.EmailAuthProvider.PROVIDER_ID,
     ],
     callBacks: {
-      signInSuccess: () => false,
+      signInSuccessWithAuthResult: (e) => {
+        if (e.additionalUserInfo.isNewUser) {
+          firebase
+            .firestore()
+            .collection("users")
+            .doc(e.user.uid)
+            .set({ tasks: [] });
+        }
+      },
     },
   };
 
