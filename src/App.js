@@ -3,6 +3,7 @@ import "./App.css";
 import firebase from "firebase";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import Studier from "./components/studier";
+import officeIcon from "./icons/office_work_.svg";
 
 if (!firebase.apps.length) {
   firebase.initializeApp({
@@ -55,10 +56,24 @@ function App() {
           />
         </div>
       ) : (
-        <StyledFirebaseAuth
-          uiConfig={uiConfig}
-          firebaseAuth={firebase.auth()}
-        />
+        <div class="flex flex-wrap mb-4 landingDiv">
+          <div className="w-full md:w-1/2 text-center text-white font-bold m-auto">
+            <h1 style={{ fontSize: "3rem" }}>Procrastinator</h1>
+            <h2 className="text-3xl">Productivity monitor</h2>
+            <StyledFirebaseAuth
+              uiConfig={uiConfig}
+              firebaseAuth={firebase.auth()}
+            />
+          </div>
+          <div className="w-full md:w-1/2 m-auto">
+            <img
+              className="m-auto"
+              style={{ transform: "scaleX(-1)" }}
+              src={officeIcon}
+              alt="work"
+            />
+          </div>
+        </div>
       )}
     </div>
   );

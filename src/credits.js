@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Firestore from "../src/firebase";
 import exitIcon from "./icons/sign-out-alt-solid.svg";
-import shareIcon from "./icons/share-alt-solid.svg";
 
 function useSessions(props) {
   const [times, setTimes] = useState([]);
@@ -29,7 +28,7 @@ function Credits(props) {
         <p className="text-4xl font-bold mx-4 pt-10">PROCRASTINATOR</p>
       </div>
 
-      <div className="text-center wrapper historyDiv">
+      <div className="text-center wrapper historyDiv w-1/3">
         <h2
           className="font-bold text-3xl my-4 px-12"
           style={{ color: "#5356db" }}
@@ -45,7 +44,10 @@ function Credits(props) {
                 const seconds = (logged.time % 3600) % 60;
 
                 return (
-                  <li key={index} className="historyTime my-6 rounded py-2">
+                  <li
+                    key={index}
+                    className="historyTime w-full my-6 rounded py-2"
+                  >
                     <span className="text-white">{logged.task}: </span>
                     <span className="text-white">
                       {("0" + hours).slice(-2)}:{("0" + minutes).slice(-2)}:
@@ -68,13 +70,6 @@ function Credits(props) {
           onClick={() => props.signOut()}
           src={exitIcon}
           alt="logout"
-        />
-        <img
-          className="rounded text-white font-bold my-2 share mx-1 px-3 py-1"
-          style={{ cursor: "pointer", maxWidth: "3rem" }}
-          onClick={() => props.signOut()}
-          src={shareIcon}
-          alt="share"
         />
       </div>
 

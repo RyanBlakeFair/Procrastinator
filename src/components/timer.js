@@ -79,7 +79,7 @@ function Timer(props) {
 
   return (
     <div>
-      <div className="wrapper px-2">
+      <div className="wrapper px-2 w-1/3">
         <p
           className="text-4xl text-white text-center font-bold"
           style={{ textTransform: "uppercase" }}
