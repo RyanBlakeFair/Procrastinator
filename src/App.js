@@ -56,7 +56,7 @@ function App() {
           />
         </div>
       ) : (
-        <div class="flex flex-wrap mb-4 landingDiv">
+        <div className="flex flex-wrap mb-4 landingDiv">
           <div className="w-full md:w-1/2 text-center text-white font-bold m-auto">
             <h1 style={{ fontSize: "3rem" }}>Procrastinator</h1>
             <h2 className="text-3xl">Productivity monitor</h2>

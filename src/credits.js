@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import Firestore from "../src/firebase";
+import db from "../src/firebase";
 import exitIcon from "./icons/sign-out-alt-solid.svg";
+import timesIcon from "./icons/times-solid.svg";
 
 function useSessions(props) {
   const [times, setTimes] = useState([]);
 
   useEffect(() => {
-    Firestore.firestore()
+    db.firestore()
       .collection("users")
       .doc(props.uid)
       .onSnapshot((snapshot) => {
@@ -17,6 +18,24 @@ function useSessions(props) {
   }, []);
 
   return times;
+}
+
+function removeData(i, props) {
+  db.firestore
+    .collection("users")
+    .doc(props.uid)
+    .update({
+      [i]: db.firestore.FieldValue.delete(),
+    });
+
+  // db.firestore()
+  //   .collection("users")
+  //   .doc(props.uid)
+  //   .onSnapshot((snapshot) => {
+  //     const toDelete = snapshot.data().tasks[i];
+
+  //     console.log(toDelete);
+  //   });
 }
 
 function Credits(props) {
@@ -44,16 +63,25 @@ function Credits(props) {
                 const seconds = (logged.time % 3600) % 60;
 
                 return (
-                  <li
-                    key={index}
-                    className="historyTime w-full my-6 rounded py-2"
-                  >
-                    <span className="text-white">{logged.task}: </span>
-                    <span className="text-white">
-                      {("0" + hours).slice(-2)}:{("0" + minutes).slice(-2)}:
-                      {("0" + seconds).slice(-2)}
-                    </span>
-                  </li>
+                  <div className="flex flex-row">
+                    <li
+                      key={index}
+                      className="historyTime w-full my-6 rounded py-2"
+                    >
+                      <span className="text-white">{logged.task}: </span>
+                      <span className="text-white">
+                        {("0" + hours).slice(-2)}:{("0" + minutes).slice(-2)}:
+                        {("0" + seconds).slice(-2)}
+                      </span>
+                    </li>
+                    <button onClick={() => removeData(index, props)}>
+                      <img
+                        src={timesIcon}
+                        alt="x"
+                        className="rounded bg-red-500 text-white signOut mx-1 px-4 py-3 w-12"
+                      />
+                    </button>
+                  </div>
                 );
               });
             } catch {
