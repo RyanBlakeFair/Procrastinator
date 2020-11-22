@@ -85,7 +85,7 @@ function Credits(props) {
                       <li className="flex flex-row">
                         <div
                           key={index}
-                          className="historyTime w-full my-6 rounded py-2"
+                          className="historyTime w-full my-6 rounded py-2 font-bold"
                         >
                           <span className="text-white">{logged.task}: </span>
                           <span className="text-white">
