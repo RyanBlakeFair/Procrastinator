@@ -3,21 +3,18 @@ import db from "../src/firebase";
 import exitIcon from "./icons/sign-out-alt-solid.svg";
 import timesIcon from "./icons/times-solid.svg";
 
-function useSessions(props) {
-  const [times, setTimes] = useState([]);
-
-  useEffect(() => {
-    db.firestore()
-      .collection("users")
-      .doc(props.uid)
-      .onSnapshot((snapshot) => {
-        const newTimes = snapshot.data();
-        setTimes([...times, newTimes]);
+function getUsers(setUsers, setLoading) {
+  const users = [];
+  db.firestore()
+    .collection("users")
+    .onSnapshot((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        users.push({ id: doc.id, ...doc.data() });
       });
-    // eslint-disable-next-line
-  }, []);
 
-  return times;
+      setUsers(users);
+      setLoading(false);
+    });
 }
 
 function removeData(i, props) {
@@ -39,73 +36,99 @@ function removeData(i, props) {
 }
 
 function Credits(props) {
-  const sessions = useSessions(props);
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const names = [
+    { id: "p2pEw0wZOldFzCO625HYcd2GGhq2", name: "Ryan" },
+    { id: "2p7bjfThCoNpFMQiet7tssm1Ho43", name: "Brittney" },
+    { id: "QmbfG9COWfXq9BASxRsIJ8xoxIh1", name: "Andrew" },
+    { id: "kSl0J7XZ23WOvHJC1tNcnqkDBYV2", name: "Gideon" },
+    { id: "", name: "Ephraim" },
+    { id: "", name: "Kane" },
+  ];
 
-  return (
-    <div className="credits">
-      <div className="justify-center text-center">
-        <p className="text-4xl font-bold mx-4 pt-10">PROCRASTINATOR</p>
-      </div>
+  useEffect(() => {
+    getUsers(setUsers, setLoading);
+  }, []);
 
-      <div className="text-center wrapper historyDiv w-1/3">
-        <h2
-          className="font-bold text-3xl my-4 px-12"
-          style={{ color: "#5356db" }}
-        >
-          Your History:
-        </h2>
-        <ul className="font-bold text-xl">
-          {sessions.map((task, i) => {
-            try {
-              return task.tasks.map((logged, index) => {
-                const hours = Math.floor(logged.time / 3600);
-                const minutes = Math.floor((logged.time % 3600) / 60);
-                const seconds = (logged.time % 3600) % 60;
+  switch (loading) {
+    case false:
+      return (
+        <div className="credits">
+          <div className="justify-center text-center">
+            <p className="text-4xl font-bold mx-4 pt-10">PROCRASTINATOR</p>
+          </div>
 
-                return (
-                  <div className="flex flex-row">
-                    <li
-                      key={index}
-                      className="historyTime w-full my-6 rounded py-2"
-                    >
-                      <span className="text-white">{logged.task}: </span>
-                      <span className="text-white">
-                        {("0" + hours).slice(-2)}:{("0" + minutes).slice(-2)}:
-                        {("0" + seconds).slice(-2)}
-                      </span>
-                    </li>
-                    <button onClick={() => removeData(index, props)}>
-                      <img
-                        src={timesIcon}
-                        alt="x"
-                        className="rounded bg-red-500 text-white signOut mx-1 px-4 py-3 w-12"
-                      />
-                    </button>
-                  </div>
-                );
-              });
-            } catch {
-              return <p>You haven't been very productive</p>;
-            }
-          })}
-        </ul>
-      </div>
+          <h2
+            className="font-bold text-3xl my-4 px-12 text-center"
+            style={{ color: "#5356db" }}
+          >
+            History
+          </h2>
+          <div className="text-center historyDiv grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6">
+            {users.map((user, i) => {
+              return (
+                <ul>
+                  {names
+                    .filter((person) => person.id === user.id)
+                    .map((filteredPerson) => (
+                      <h1 className="text-2xl font-bold">
+                        {filteredPerson.name}
+                      </h1>
+                    ))}
 
-      <div className="flex justify-center footerIcons pl-4 pb-1">
-        <img
-          className="rounded bg-red-500 text-white font-bold my-2 signOut mx-1 px-2"
-          style={{ cursor: "pointer", maxWidth: "3rem" }}
-          onClick={() => props.signOut()}
-          src={exitIcon}
-          alt="logout"
-        />
-      </div>
+                  {user.tasks.map((logged, index) => {
+                    const hours = Math.floor(logged.time / 3600);
+                    const minutes = Math.floor((logged.time % 3600) / 60);
+                    const seconds = (logged.time % 3600) % 60;
+                    return (
+                      <li className="flex flex-row">
+                        <div
+                          key={index}
+                          className="historyTime w-full my-6 rounded py-2"
+                        >
+                          <span className="text-white">{logged.task}: </span>
+                          <span className="text-white">
+                            {("0" + hours).slice(-2)}:
+                            {("0" + minutes).slice(-2)}:
+                            {("0" + seconds).slice(-2)}
+                          </span>
+                        </div>
+                        <button onClick={() => removeData(index, props)}>
+                          <img
+                            src={timesIcon}
+                            alt="x"
+                            className="rounded bg-red-500 text-white signOut mx-1 px-4 w-12"
+                            style={{ height: "40px" }}
+                          />
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              );
+            })}
+          </div>
 
-      <div className="footer">
-        <p className="text-center">@ryanblakefair</p>
-      </div>
-    </div>
-  );
+          <div className="flex justify-center footerIcons pl-4 pb-1">
+            <img
+              className="rounded bg-red-500 text-white font-bold my-2 signOut mx-1 px-2"
+              style={{ cursor: "pointer", maxWidth: "3rem" }}
+              onClick={() => props.signOut()}
+              src={exitIcon}
+              alt="logout"
+            />
+          </div>
+
+          <div className="footer">
+            <p className="text-center">@ryanblakefair</p>
+          </div>
+        </div>
+      );
+
+    default:
+      return <p>loading</p>;
+  }
 }
 
 export default Credits;
