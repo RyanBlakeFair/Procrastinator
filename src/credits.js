@@ -56,7 +56,9 @@ function Credits(props) {
       return (
         <div className="credits">
           <div className="justify-center text-center">
-            <p className="text-4xl font-bold mx-4 pt-10">PROCRASTINATOR</p>
+            <p className="text-4xl font-bold mx-4 pt-10">
+              PROCRASTINATOR (W.I.P)
+            </p>
           </div>
 
           <h2
